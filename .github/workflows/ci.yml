@@ -1,6 +1,6 @@
 name: CI
 
-on: [push]
+on: ["push", "pull_request"]
 
 jobs:
   build:
@@ -47,7 +47,12 @@ jobs:
         run: composer test
         
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+  coverage:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Coveralls
+        uses: coverallsapp/github-action@v1
         with:
-          files: ./coverage/clover.xml
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel-finished: true
