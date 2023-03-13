@@ -57,7 +57,7 @@ jobs:
           max_attempts: 3
           command: |
             composer global require php-coveralls/php-coveralls
-            php-coveralls --coverage_clover=coverage/clover.xml -v
+            php-coveralls -v
 
   coverage:
     needs: build
